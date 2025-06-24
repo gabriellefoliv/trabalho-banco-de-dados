@@ -18,7 +18,7 @@ class FornecedorController {
     }
 
     async buscarFornecedores(req, res) {
-        db.query('SELECT * FROM fornecedor', (err, results) => {
+        db.query('SELECT * FROM fornecedor ORDER BY dataIni DESC', (err, results) => {
             if (err) {
                 return res.status(500).send({ error: 'Erro ao buscar fornecedores' })
             }
@@ -32,7 +32,6 @@ class FornecedorController {
             FROM fornecedor f
             INNER JOIN materia_prima mp
             ON f.codFornecedor = mp.codFornecedor
-            WHERE f.dataFim IS NULL
             GROUP BY f.razaoSocial
             HAVING COUNT(DISTINCT mp.categoria) >= 3        
             `,
@@ -53,7 +52,6 @@ class FornecedorController {
             ON f.codFornecedor = mp.codFornecedor
             INNER JOIN aloca_mp a
             ON mp.codMP = a.codMP
-            WHERE f.dataFim IS NULL
             GROUP BY f.razaoSocial
             HAVING AVG(mp.custo) > 50 AND COUNT(DISTINCT a.codProduto) >= 2`,
             (err, results) => {

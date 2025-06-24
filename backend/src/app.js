@@ -6,6 +6,7 @@ import './database/index.js'
 class App {
     constructor() {
         this.server = express()
+        this.middleWares()
         this.routes()
     }
 

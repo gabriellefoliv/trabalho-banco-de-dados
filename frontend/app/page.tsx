@@ -37,7 +37,7 @@ export default function Home() {
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto flex flex-col justify-center bg-white rounded-lg shadow-md">
+    <div className="p-6 max-w-2xl mx-auto mt-8 flex flex-col justify-center bg-white rounded-lg shadow-md">
       <div className="flex flex-col justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Fornecedores</h1>
         <div className="flex gap-2">

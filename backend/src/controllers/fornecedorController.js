@@ -4,6 +4,10 @@ class FornecedorController {
     async criarFornecedor(req, res) {
         const { razaoSocial, cnpj, email, dataFim } = req.body
 
+        if (!razaoSocial || !cnpj || !email) {
+            return res.status(400).json({ error: 'Preencha todos os campos obrigatórios' })
+        }
+
         if (dataFim && new Date(dataFim) < new Date()) {
             return res.status(400).json({ error: 'A data de término não pode ser anterior à data atual.' })
         }
@@ -84,7 +88,7 @@ class FornecedorController {
         db.query(
             `
                 UPDATE fornecedor
-                SET dataFim = DATE_ADD(IFNULL(dataFim, CURDATE()), INTERVAL ? ${unidade.toUpperCase()})
+                SET dataFim = DATE_ADD(dataFim, INTERVAL ? ${unidade.toUpperCase()})
                 WHERE codFornecedor = ?
             `,
             [quantidade, codFornecedor],
